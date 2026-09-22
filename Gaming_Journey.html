@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" id="htmlRoot">
 <head>
@@ -25,6 +26,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#000;overflow:hidden;font-family:"Inter","IBM Plex Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 html[lang="zh-CN"] .eyebrow{letter-spacing:.18em}
+/* EN intro title fits one line so the note clears the CTA */
+html[lang="en"] .panel[data-p="intro"] .h-big{font-size:68px}
+html[lang="en"] .panel[data-p="intro"] .h-big .grad{font-size:48px;margin-top:4px}
 #viewport{position:fixed;inset:0;overflow:hidden;background:#000}
 #stage{
   position:absolute;top:50%;left:50%;width:1920px;height:1080px;
