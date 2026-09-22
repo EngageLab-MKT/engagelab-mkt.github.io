@@ -227,7 +227,7 @@ html[lang="en"] .panel[data-p="intro"] .h-big .grad{font-size:48px;margin-top:4p
   transition:width 1.4s cubic-bezier(.3,.9,.3,1);
 }
 .node{
-  position:absolute;top:948px;width:58px;height:58px;border-radius:50%;z-index:8;
+  position:absolute;top:948px;width:58px;height:58px;border-radius:50%;z-index:8;cursor:pointer;
   transform:translate(-50%,-50%);
   background:#241C52;border:2.5px solid rgba(255,255,255,.25);
   display:grid;place-items:center;font-family:Georgia,serif;font-size:24px;font-weight:800;color:#8B80BE;
@@ -244,7 +244,7 @@ html[lang="en"] .panel[data-p="intro"] .h-big .grad{font-size:48px;margin-top:4p
 .node-label{
   position:absolute;top:990px;width:230px;left:0;transform:translateX(-50%);
   text-align:center;font-size:19px;font-weight:700;color:var(--muted);letter-spacing:.03em;
-}
+;cursor:pointer}
 .node-label small{display:block;font-size:13.5px;font-weight:600;color:#7E73B0;margin-top:2px;letter-spacing:.08em}
 .node.done + .node-label,.node.active + .node-label{color:#fff}
 
@@ -499,9 +499,16 @@ function buildNodes(){
   NODES.forEach((n,i)=>{
     const el=document.createElement('div');
     el.className='node'; el.style.left=n.x+'px'; el.dataset.i=i; el.textContent=n.r;
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.setAttribute('aria-label', n[lang].t);
     const lb=document.createElement('div');
     lb.className='node-label'; lb.style.left=n.x+'px';
     lb.innerHTML=`${n[lang].t}<small>${n[lang].s}</small>`;
+    const jump=()=>jumpToStage(i+1);
+    el.addEventListener('click',jump);
+    lb.addEventListener('click',jump);
+    el.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); jump(); }});
     layer.appendChild(el); layer.appendChild(lb);
   });
 }
@@ -588,6 +595,21 @@ function fireToast(text){
   toastEl.innerHTML=`${I.shield}<span>${text}</span>`;
   toastEl.classList.remove('show'); void toastEl.offsetWidth; toastEl.classList.add('show');
   ding();
+}
+
+
+/* click a timeline node -> jump to that stage start */
+function stageStartMs(stageIndex){
+  let g=0;
+  for(let k=0;k<stageIndex;k++) g+=STAGES[k].dur;
+  return g;
+}
+function jumpToStage(stageIndex){
+  if(paused){
+    paused=false;
+    icPause.style.display='block'; icPlay.style.display='none';
+  }
+  seekTo(stageStartMs(stageIndex)+10);
 }
 
 function runStage(i, elapsed=0){
