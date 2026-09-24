@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function(){
+  try{
+    var l = localStorage.getItem("lang_pref");
+    if(l!=="en" && l!=="zh"){
+      l = (navigator.language||"en").toLowerCase().indexOf("zh")===0 ? "zh" : "en";
+    }
+    document.documentElement.setAttribute("data-lang", l);
+    document.documentElement.setAttribute("lang", l==="zh" ? "zh-CN" : "en");
+  }catch(e){
+    document.documentElement.setAttribute("data-lang","en");
+  }
+})();
+</script>
+<title
+  data-en="How EngageLab Billing Works — Pricing Guide"
+  data-zh="EngageLab 计费方式全解析 — 定价指南">How EngageLab Billing Works — Pricing Guide</title>
+<meta name="description"
+  data-en="A plain-English guide to EngageLab's seven billing models across ten products: what you pay for, and why each model works in your favor."
+  data-zh="用通俗语言解析 EngageLab 十款产品的七种计费模式：您为什么付费，以及每种计费方式如何对您有利。"
+  content="A plain-English guide to EngageLab's seven billing models across ten products: what you pay for, and why each model works in your favor.">
+<style>
+:root{
+  --purple:#2A1F5C;
+  --purple-2:#3A2E72;
+  --purple-deep:#1F1748;
+  --violet:#9B7BFF;
+  --lime:#BFE24E;
+  --pink:#F08FAE;
+  --gold:#E3C54E;
+  --cream:#F6F4FE;
+  --ink:#221D40;
+  --muted:#6B6588;
+  --line:#E9E5F6;
+  --white:#FFFFFF;
+  --radius:20px;
+  --shadow:0 18px 50px -24px rgba(42,31,92,.35);
+  --font:"Inter","IBM Plex Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit}
+img,svg{display:block}
+.wrap{width:min(1120px,92vw);margin:0 auto}
+
+/* ---------- Language variants ---------- */
+html .only-en,html .only-zh{display:none}
+html[data-lang="en"] .only-en,
+html[data-lang="zh"] .only-zh{display:inline}
+html[data-lang="en"] a.only-en.lang-cta,
+html[data-lang="zh"] a.only-zh.lang-cta{display:inline-flex}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(246,244,254,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand-logo{height:30px;width:auto;max-width:172px}
+.header-right{display:flex;align-items:center;gap:14px}
+.lang-switch{
+  display:inline-flex;align-items:center;
+  background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:3px;
+}
+.lang-switch button{
+  border:0;background:transparent;cursor:pointer;
+  font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);
+  padding:5px 13px;border-radius:999px;
+  transition:background .2s ease,color .2s ease;
+}
+.lang-switch button.is-active{background:var(--purple);color:#fff}
+.header-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--purple);color:#fff;text-decoration:none;
+  font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;
+  transition:transform .2s ease, background .2s ease;
+}
+.header-cta:hover{background:var(--purple-2);transform:translateY(-1px)}
+.header-cta svg{width:15px;height:15px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--purple);color:#fff;overflow:hidden;padding:96px 0 84px}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none}
+.hero-blob.b1{width:420px;height:420px;background:var(--violet);top:-160px;right:-80px}
+.hero-blob.b2{width:340px;height:340px;background:var(--pink);bottom:-200px;left:-60px;opacity:.35}
+.hero-blob.b3{width:240px;height:240px;background:var(--lime);top:40%;left:55%;opacity:.28}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--lime);margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--lime);border-radius:2px}
+.hero h1{
+  font-size:clamp(38px,6vw,64px);line-height:1.08;letter-spacing:-.025em;
+  font-weight:800;max-width:14ch;margin-bottom:22px;word-break:keep-all;line-break:strict;
+}
+.hero p.lede{font-size:clamp(16.5px,2vw,19.5px);max-width:56ch;color:rgba(255,255,255,.86);word-break:keep-all;line-break:strict}
+.hero-note{
+  margin-top:30px;font-size:14.5px;color:rgba(255,255,255,.72);
+  display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;
+}
+.hero-note strong{color:#fff;font-weight:700}
+.hero-note a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.hero-note a:hover{color:var(--lime)}
+.hero-nav{
+  margin-top:44px;display:flex;flex-wrap:wrap;gap:10px;
+}
+.hero-nav .nav-break{flex-basis:100%;height:0;width:0}
+.hero-nav a{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);
+  color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;
+  padding:9px 15px;border-radius:999px;white-space:nowrap;
+  transition:background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.hero-nav a:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);transform:translateY(-1px)}
+.hero-nav a .n{
+  display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;
+  background:var(--lime);color:var(--purple);font-size:11px;font-weight:800;
+}
+.hero-nav a.is-active{background:var(--lime);border-color:var(--lime);color:var(--purple)}
+.hero-nav a.is-active .n{background:var(--purple);color:var(--lime)}
+
+/* ---------- Sections ---------- */
+.models{padding:72px 0 40px}
+.model{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(28px,4.5vw,52px);
+  margin-bottom:34px;box-shadow:var(--shadow);
+  scroll-margin-top:92px;
+}
+.model-top{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.model-num{
+  width:52px;height:52px;flex:0 0 auto;border-radius:15px;
+  display:grid;place-items:center;color:var(--purple);
+}
+.model-num svg{width:26px;height:26px}
+.model-head{flex:1;min-width:240px}
+.model h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.02em;line-height:1.2;color:var(--purple)}
+.product-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.product-tags span{
+  font-size:12.5px;font-weight:700;color:var(--purple-2);
+  background:var(--cream);border:1px solid var(--line);
+  padding:4px 12px;border-radius:999px;
+}
+.the-model{
+  margin:22px 0 28px;padding:16px 20px;
+  border-left:4px solid var(--accent);background:var(--cream);
+  border-radius:0 12px 12px 0;font-size:15.5px;color:var(--purple-deep);
+}
+.the-model strong{font-weight:800}
+.benefits-title{
+  font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;
+}
+.benefits{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:16px 28px}
+.benefits li{display:flex;gap:13px;font-size:15px;line-height:1.6}
+.benefits .tick{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;margin-top:2px;
+  display:grid;place-items:center;
+}
+.benefits .tick svg{width:12px;height:12px}
+.benefits strong{color:var(--purple-deep);font-weight:700}
+.scale-note{
+  margin-top:28px;display:flex;gap:14px;align-items:flex-start;
+  background:var(--purple);color:#fff;border-radius:14px;padding:16px 20px;
+  font-size:14.5px;
+}
+.scale-note .ic{flex:0 0 auto;width:26px;height:26px;margin-top:1px}
+.scale-note strong{color:var(--accent);font-weight:800}
+.scale-note a{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* accents */
+.model[data-accent="violet"]{--accent:var(--violet)}
+.model[data-accent="gold"]{--accent:var(--gold)}
+.model[data-accent="pink"]{--accent:var(--pink)}
+.model[data-accent="lime"]{--accent:var(--lime)}
+.model-num{background:#EDE9FB}
+@supports (background:color-mix(in srgb,red 22%,white)){
+  .model-num{background:color-mix(in srgb,var(--accent) 22%,white)}
+}
+.benefits .tick{background:var(--accent)}
+
+/* ---------- Closing CTA ---------- */
+.closing{padding:30px 0 90px}
+.closing-card{
+  background:var(--purple);border-radius:26px;color:#fff;
+  padding:clamp(40px,6vw,72px);text-align:center;position:relative;overflow:hidden;
+}
+.closing-card::before,.closing-card::after{
+  content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.4;pointer-events:none;
+}
+.closing-card::before{width:300px;height:300px;background:var(--violet);top:-140px;left:-80px}
+.closing-card::after{width:260px;height:260px;background:var(--pink);bottom:-140px;right:-60px}
+.closing-card > *{position:relative;z-index:1}
+.closing h2{font-size:clamp(28px,4.4vw,44px);letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
+.closing p{max-width:52ch;margin:0 auto 34px;color:rgba(255,255,255,.85);font-size:16.5px}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-weight:700;font-size:15.5px;text-decoration:none;
+  padding:15px 28px;border-radius:999px;
+  transition:transform .2s ease, background .2s ease, color .2s ease;
+}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--lime);color:var(--purple)}
+.btn-primary:hover{background:#cdea78;transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+
+.header-cta.cta-ghost{background:transparent;color:var(--purple);border:1.5px solid rgba(42,31,92,.3);padding:8.5px 17px}
+.header-cta.cta-ghost:hover{background:rgba(42,31,92,.06)}
+.hero-cta-row{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-cta-row .btn-ghost-text{color:#fff;font-weight:700;font-size:15px;text-decoration:underline;text-underline-offset:4px}
+.hero-cta-row .btn-ghost-text:hover{color:var(--lime)}
+
+/* ---------- Footer ---------- */
+.site-footer{border-top:1px solid var(--line);padding:34px 0 46px;background:var(--cream)}
+.site-footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+.footer-fine{font-size:13.5px;color:var(--muted)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-size:13.5px;font-weight:600}
+.footer-links a{color:var(--purple);text-decoration:none}
+.footer-links a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- Keyboard focus ---------- */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+  outline:3px solid var(--violet);
+  outline-offset:3px;
+  border-radius:6px;
+}
+.hero-nav a:focus-visible,.btn:focus-visible,.header-cta:focus-visible,.lang-switch button:focus-visible{border-radius:999px}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn,.hero-nav a,.header-cta,.lang-switch button{transition:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){.hero-nav .nav-break{display:none}}
+@media (max-width:720px){
+  .hero{padding:72px 0 64px}
+  .model{border-radius:16px}
+  .benefits{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .brand-logo{height:26px;max-width:132px}
+  .header-right{gap:10px}
+  .lang-switch button{padding:5px 10px}
+  .header-cta{padding:9px 12px}
+  .header-cta .lbl{display:none}
+}
+
+/* ---------- Print ---------- */
+@media print{
+  body{background:#fff}
+  .site-header,.hero-nav,.hero-cta-row,.closing .btn,.scale-note a{display:none}
+  .hero{background:#fff;color:#000;padding:30px 0}
+  .hero h1,.hero p.lede{color:#000}
+  .eyebrow{color:#000}
+  .eyebrow::before{background:#000}
+  .hero-note{color:#333}
+  .model{box-shadow:none;border:1px solid #bbb;break-inside:avoid;margin-bottom:18px;padding:24px}
+  .closing-card{background:#fff;color:#000;border:1px solid #bbb}
+  .closing h2,.closing p{color:#000}
+  .closing-card::before,.closing-card::after{display:none}
+  .scale-note{background:#fff;color:#000;border:1px solid #bbb}
+  .scale-note strong{color:#000}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="https://www.engagelab.com/?utm_source=outbound&amp;utm_campaign=pricing_guide" data-href-en="https://www.engagelab.com/?utm_source=outbound&amp;utm_campaign=pricing_guide" data-href-zh="https://www.engagelab.com/zh_CN/?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer" aria-label="EngageLab home">
+      <img class="brand-logo" src="https://img.engagelab.net/official/common/logo/20260127/logo-site-engagelab-full-black.svg" width="315" height="45" alt="EngageLab">
+    </a>
+    <div class="header-right">
+      <div class="lang-switch" role="group" aria-label="Language / 语言">
+        <button type="button" data-set-lang="en" class="is-active">EN</button>
+        <button type="button" data-set-lang="zh">中文</button>
+      </div>
+      <a class="header-cta only-en lang-cta" href="https://www.engagelab.com/accounts/signin?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+        <span class="lbl">Log in &amp; top up</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="header-cta cta-ghost only-en lang-cta" href="https://www.engagelab.com/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+        <span class="lbl">Talk to our team</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="header-cta only-zh lang-cta" href="https://www.engagelab.com/zh_CN/accounts/signin?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+        <span class="lbl">登录控制台充值</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="header-cta cta-ghost only-zh lang-cta" href="https://www.engagelab.com/zh_CN/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+        <span class="lbl">联系我们</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-blob b1" aria-hidden="true"></div>
+  <div class="hero-blob b2" aria-hidden="true"></div>
+  <div class="hero-blob b3" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow"><span class="only-en">Pricing Guide</span><span class="only-zh">计费指南</span></p>
+    <h1><span class="only-en">How EngageLab billing works</span><span class="only-zh">EngageLab 计费方式全解析</span></h1>
+    <p class="lede"><span class="only-en">Seven billing models across ten products — each one ties your bill to the value you actually receive, and every add-on is optional rather than bundled.</span><span class="only-zh">十款产品，七种计费模式——每一种都让账单与您实际获得的价值挂钩，所有增值项均为按需选择，绝不强制捆绑。</span></p>
+    <div class="hero-cta-row">
+      <a class="btn btn-primary only-en lang-cta" href="https://www.engagelab.com/accounts/signin?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">Log in &amp; complete payment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-primary only-zh lang-cta" href="https://www.engagelab.com/zh_CN/accounts/signin?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">登录控制台，完成充值 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="only-en lang-cta btn-ghost-text" href="https://www.engagelab.com/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">Talk to our team</a>
+      <a class="only-zh lang-cta btn-ghost-text" href="https://www.engagelab.com/zh_CN/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">联系我们</a>
+    </div>
+    <p class="hero-note">
+      <span class="only-en">The more you send, the more flexible pricing gets.</span>
+      <span class="only-zh">发送量越大，价格弹性空间越大。</span>
+    </p>
+    <nav class="hero-nav" aria-label="Jump to a product / 跳转产品">
+      <a href="#m1"><span class="n">1</span><span class="only-en">AppPush &amp; WebPush</span><span class="only-zh">AppPush 与 WebPush</span></a>
+      <a href="#m2"><span class="n">2</span><span class="only-en">Email</span><span class="only-zh">Email 邮件</span></a>
+      <a href="#m3"><span class="n">3</span><span>SMS</span></a>
+      <a href="#m4"><span class="n">4</span><span>WhatsApp</span></a>
+      <span class="nav-break" aria-hidden="true"></span>
+      <a href="#m5"><span class="n">5</span><span class="only-en">OTP &amp; Silent Auth</span><span class="only-zh">OTP 与 Silent Auth</span></a>
+      <a href="#m6"><span class="n">6</span><span class="only-en">Marketing Automation</span><span class="only-zh">营销自动化（MA）</span></a>
+      <a href="#m7"><span class="n">7</span><span>LiveDesk</span></a>
+      <a href="#m8"><span class="n">8</span><span>CAPTCHA</span></a>
+    </nav>
+  </div>
+</section>
+
+<!-- Models -->
+<div class="models">
+<div class="wrap">
+
+<!-- 1 · AppPush & WebPush -->
+<article class="model reveal" id="m1" data-accent="lime">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.8-4H15a3 3 0 0 0-3 3v.6"/><rect x="3" y="8" width="12" height="12" rx="3"/><path d="M15 11h3a3 3 0 0 1 0 6h-3"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Peak-DAU subscription</span><span class="only-zh">按峰值 DAU 订阅</span></h2>
+      <div class="product-tags"><span>AppPush</span><span>WebPush</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> a monthly subscription built on your single highest DAU day of the month. Push volume and registered users are unlimited within the plan.</span><span class="only-zh"><strong>计费方式：</strong>按月订阅，计费依据为当月单日最高 DAU（日活跃用户数）。方案内推送数量与注册用户数均不限。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Send frequency is fully decoupled from cost.</strong> Broadcast twice as often, re-engage dormant users, run flash sales — your bill doesn't move. There's no disincentive to sending the extra notification that could recover a user.</span><span class="only-zh"><strong>发送频次与费用完全脱钩。</strong>无论增加推送频次、召回沉默用户，还是开展限时促销，账单都不会因此变化；多推一条可能唤回用户的通知，不会有任何成本顾虑。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Campaign spikes can't inflate the bill.</strong> A viral day is already covered by your DAU tier; traffic intensity above your normal level never triggers message-based charges.</span><span class="only-zh"><strong>流量爆发不会推高账单。</strong>爆款传播带来的高峰日已包含在 DAU 档位内，超出日常水平的流量不会触发按条计费。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>You budget against one number.</strong> Audience size in, one subscription out — easy to forecast month to month.</span><span class="only-zh"><strong>只需盯住一个数字做预算。</strong>按受众规模对应固定订阅费用，逐月预测轻松简单。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Capacity costs are transparent.</strong> A standard send-through capacity is included; higher throughput is the only typical add-on, priced per fixed increment.</span><span class="only-zh"><strong>容量成本透明。</strong>方案已包含标准发送吞吐容量；如需更高吞吐，这通常也是唯一的加购项，按固定档位计价。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>Large audience?</strong> DAU-tier pricing softens considerably at higher bands — share your peak numbers with us.</span><span class="only-zh"><strong>受众规模较大？</strong>DAU 档位单价在更高区间会显著优化——欢迎把您的峰值数据告诉我们。</span></span>
+  </p>
+</article>
+
+<!-- 2 · Email -->
+<article class="model reveal" id="m2" data-accent="pink">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Prepaid volume packs</span><span class="only-zh">预付费套餐包</span></h2>
+      <div class="product-tags"><span>Email</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> buy a pack of emails up front; it holds its value for <strong>24 months</strong>, and unused emails don't expire at month end.</span><span class="only-zh"><strong>计费方式：</strong>一次性购买邮件套餐包，余额有效期长达 <strong>24 个月</strong>，未使用的邮件不会在月底清零。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>No use-it-or-lose-it pressure.</strong> Unlike monthly quotas, unused balance carries for up to two years — seasonal senders never forfeit paid emails.</span><span class="only-zh"><strong>没有“不用即作废”的压力。</strong>与月度配额不同，未使用余额最长可结转两年——业务有季节性也不会浪费已购邮件。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Unit price drops as packs get bigger.</strong> Buying ahead of a known campaign is genuinely cheaper than topping up as you go.</span><span class="only-zh"><strong>套餐越大，单价越低。</strong>在已知大型营销活动前提前购买，比随用随充更划算。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Add-ons are unbundled and optional.</strong> Dedicated IPs, extra data, authentication, longer storage, inbox previews and insights are each priced separately — you never subsidize features you don't use.</span><span class="only-zh"><strong>增值项全部解耦、按需选择。</strong>专属 IP、额外流量、认证服务、更长存储、进箱预览与数据分析等均单独计价，无需为用不上的功能买单。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Free starting tier.</strong> Every new account gets 50 free emails per day.</span><span class="only-zh"><strong>提供免费起步额度。</strong>每个新账户每天可免费发送 50 封邮件。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>Sending millions a month?</strong> Enterprise volume rates and custom packages are available.</span><span class="only-zh"><strong>月发送量达数百万级？</strong>可享企业级量大单价与定制套餐。</span></span>
+  </p>
+</article>
+
+<!-- 3 · SMS -->
+<article class="model reveal" id="m3" data-accent="gold">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.3a8.5 8.5 0 1 1 17-3.2z"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Pure pay-as-you-go</span><span class="only-zh">纯按量付费</span></h2>
+      <div class="product-tags"><span>SMS</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> one unit price per message, set by destination country — no monthly floor, no platform fee.</span><span class="only-zh"><strong>计费方式：</strong>按条单价计费，单价按目的地国家 / 地区确定——无月度最低消费，无平台费。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Slow months cost almost nothing.</strong> With no fixed fee, a quiet period shrinks your bill instead of leaving a platform charge on the books.</span><span class="only-zh"><strong>业务淡季几乎零成本。</strong>没有固定费用，发送量低的月份账单随之缩减，不会留下一笔平台费支出。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Simple to model and approve.</strong> Unit price × estimated messages is the entire calculation — no buried line items or reconciliation.</span><span class="only-zh"><strong>核算与审批简单。</strong>单价 × 预估发送量即为全部费用，没有隐藏收费项，也无需对账。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>No upfront gamble.</strong> You can enter a new market or run a test campaign without pre-committing to a package.</span><span class="only-zh"><strong>无需前期投入即可尝试。</strong>进入新市场或开展测试活动，不必预先承诺购买套餐。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Cost follows your actual routes.</strong> Each destination has its own unit price, so the bill reflects where messages really went rather than a blended average.</span><span class="only-zh"><strong>费用与实际路由一致。</strong>每个目的地对应独立单价，账单如实反映短信实际触达的地区，而非统一混合均价。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>High monthly volume?</strong> Unit pricing comes down as volume goes up — <a href="https://www.engagelab.com/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">talk to us</a> about your routes and traffic mix.</span><span class="only-zh"><strong>月发送量较高？</strong>单价随量级阶梯下探——<a href="https://www.engagelab.com/zh_CN/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">联系我们</a>，告知您的路由与流量结构。</span></span>
+  </p>
+</article>
+
+<!-- 4 · WhatsApp -->
+<article class="model reveal" id="m4" data-accent="violet">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">All-in pay-as-you-go</span><span class="only-zh">一口价按量付费</span></h2>
+      <div class="product-tags"><span>WhatsApp</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> one unit price per message by country and message category, already covering the official Meta platform fee plus our service fee — no separate platform fee.</span><span class="only-zh"><strong>计费方式：</strong>按国家 / 地区与消息类别按条一口价计费，单价已包含 Meta 官方平台费与我们的服务费——无需另行支付平台费。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>No second invoice.</strong> The official platform fee is already inside the unit price — there is nothing extra to reconcile with the channel.</span><span class="only-zh"><strong>不会收到第二张账单。</strong>官方平台费已包含在单价内，无需再与渠道方单独对账。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Quiet months shrink to nothing.</strong> There's no fixed fee or floor — billing simply follows your actual sends.</span><span class="only-zh"><strong>发送淡季费用自然趋近于零。</strong>没有固定费用或最低消费，账单完全跟随实际发送量。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Every market is covered.</strong> Standard unit prices span around 140 markets, and markets outside the list still have a defined fallback rate — never an unpriced route.</span><span class="only-zh"><strong>市场覆盖无死角。</strong>标准单价覆盖约 140 个市场，列表之外的市场也设有明确的兜底费率，绝不会出现无法计价的路由。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Easy to forecast and approve.</strong> Country × category unit price × expected messages is the whole calculation; testing a new market needs no pre-commitment.</span><span class="only-zh"><strong>易于预测与审批。</strong>国家 / 地区 × 消息类别的单价 × 预期发送量即为完整测算；测试新市场无需任何前期承诺。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>Running large WhatsApp programs?</strong> Unit rates are negotiable based on monthly volume and category mix — <a href="https://www.engagelab.com/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">talk to us</a>.</span><span class="only-zh"><strong>WhatsApp 业务规模较大？</strong>单价可根据月发送量与消息类别结构协商——<a href="https://www.engagelab.com/zh_CN/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">联系我们</a>。</span></span>
+  </p>
+</article>
+
+<!-- 5 · OTP & Silent Auth -->
+<article class="model reveal" id="m5" data-accent="violet">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 5.3L20 9l-4.2 3.8L17 19l-5-2.9L7 19l1.2-6.2L4 9l5.8-.7L12 3z"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Pay only for success</span><span class="only-zh">仅为成功付费</span></h2>
+      <div class="product-tags"><span>OTP</span><span>Silent Auth</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> you are charged only when a verification succeeds. Failed, timed-out, or unverified attempts cost nothing.</span><span class="only-zh"><strong>计费方式：</strong>仅在验证成功时计费，验证失败、超时或未完成的尝试均不收费。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Zero cost of failure.</strong> Every billable event is a completed verification — a user actually got in. There is no spend on attempts that delivered nothing.</span><span class="only-zh"><strong>失败零成本。</strong>每一次计费都对应一次完成的验证——用户确实完成了登录或注册，不会为没有结果的尝试付费。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Cost self-justifies.</strong> More charges can only mean more verified logins, so finance never sees a bill disconnected from an outcome.</span><span class="only-zh"><strong>费用本身即价值证明。</strong>计费次数增长只可能意味着成功验证的用户增多，财务团队看到的每一笔账单都对应明确的业务结果。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>No volume to forecast.</strong> You never pre-buy a verification package that might go unused; billing simply follows your real success count.</span><span class="only-zh"><strong>无需预测用量。</strong>不必预先购买可能闲置的验证套餐，计费自然跟随实际成功次数。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Safe to add as a supplement.</strong> Running it alongside another verification channel can't generate wasted spend on failures.</span><span class="only-zh"><strong>作为补充通道也可放心接入。</strong>与其他验证方式并行使用，不会因失败尝试产生无效支出。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>Sending at scale?</strong> Per-verification rates are negotiable based on your monthly volume.</span><span class="only-zh"><strong>发送量级较大？</strong>每次验证的单价可根据月量级协商。</span></span>
+  </p>
+</article>
+
+<!-- 6 · Marketing Automation -->
+<article class="model reveal" id="m6" data-accent="gold">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6"/><path d="M17.5 14.7A5.5 5.5 0 0 1 20.5 20"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Per-engaged-user subscription</span><span class="only-zh">按互动用户订阅</span></h2>
+      <div class="product-tags"><span class="only-en">Marketing Automation</span><span class="only-zh">营销自动化（MA）</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> priced on Monthly Engaged Persons — unique users who enter any journey that month, de-duplicated per project — plus a fixed platform fee.</span><span class="only-zh"><strong>计费方式：</strong>按 MEP（月度互动用户数）计费——当月进入任意旅程的去重独立用户（按项目去重），另加固定平台服务费。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Sophistication doesn't multiply cost.</strong> One person in five journeys counts once. Adding touchpoints, channels or frequency inside journeys never raises the per-person price.</span><span class="only-zh"><strong>编排复杂度不会成倍放大成本。</strong>同一用户进入五条旅程也只计一次；在旅程内增加触达节点、渠道或频次，都不会抬高单人单价。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Generous event headroom.</strong> Every block of engaged users includes a large monthly event allowance, so standard lifecycle tracking doesn't trigger extra charges. Only defined custom, recommended or registration events count; standard system events are free.</span><span class="only-zh"><strong>事件额度充裕。</strong>每个互动用户档位都包含大量月度事件额度，常规生命周期追踪不会产生额外费用；仅指定的自定义事件、推荐事件或注册事件计入，标准系统事件免费。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>The platform fee is fixed and complete.</strong> It covers all platform features, AI value-adds, a monthly AI credit grant, journey design and delivery, and 24/7 support — no feature-gated upsells.</span><span class="only-zh"><strong>平台服务费固定且完整。</strong>涵盖全部平台功能、AI 增值能力、每月 AI 积分赠送、旅程设计与投放，以及 7×24 小时支持，没有功能解锁式的二次销售。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Stable audience, stable bill.</strong> If your addressable base is steady, cost stays predictable even as campaigns change.</span><span class="only-zh"><strong>受众稳定，账单即稳定。</strong>可触达用户基数平稳时，即使营销活动变化，费用依然可预期。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>Big engaged-user base?</strong> Per-person rates are negotiable as your MEP scales.</span><span class="only-zh"><strong>互动用户基数较大？</strong>单人单价可随 MEP 量级协商。</span></span>
+  </p>
+</article>
+
+<!-- 7 · LiveDesk -->
+<article class="model reveal" id="m7" data-accent="pink">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.5"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.2a4 4 0 0 1 0 7.6"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Flat subscription, unlimited seats</span><span class="only-zh">固定订阅，席位不限</span></h2>
+      <div class="product-tags"><span>LiveDesk</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> fixed monthly plans with no per-agent charges.</span><span class="only-zh"><strong>计费方式：</strong>固定月度方案，不按客服坐席收费。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Headcount decisions stay free.</strong> Adding agents, night-shift coverage, or scaling for a launch costs nothing extra — the model never penalizes staffing the service level customers expect.</span><span class="only-zh"><strong>人员配置决策完全自由。</strong>增加客服人手、夜班覆盖，或为产品发布扩容，都不会产生额外费用——计费方式不会阻碍您配置客户期望的服务人力。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Fully predictable line item.</strong> One flat price per month; ticket surges within your plan don't change it.</span><span class="only-zh"><strong>费用完全可预期。</strong>每月一笔固定费用；方案范围内的工单高峰不会改变价格。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Flex without a plan jump.</strong> If conversations temporarily exceed your plan, you can add them in small blocks instead of being forced onto the next tier.</span><span class="only-zh"><strong>临时超量无需跳档。</strong>对话量临时超出方案时，可按小额加购包补充，而非被迫升级到更高一档。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>All channels at every tier.</strong> All nine support channels and a monthly AI credit grant are included even on the entry plan.</span><span class="only-zh"><strong>各档位均开放全部通道。</strong>即便入门方案，也包含全部 9 条服务通道与每月 AI 积分赠送。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>High conversation volume?</strong> Custom plans and extra conversation blocks are available at negotiated rates.</span><span class="only-zh"><strong>对话量较高？</strong>可享定制方案与额外对话加购包，单价可协商。</span></span>
+  </p>
+</article>
+
+<!-- 8 · CAPTCHA -->
+<article class="model reveal" id="m8" data-accent="lime">
+  <div class="model-top">
+    <div class="model-num">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg>
+    </div>
+    <div class="model-head">
+      <h2><span class="only-en">Annual peak-capacity plan</span><span class="only-zh">年度峰值容量方案</span></h2>
+      <div class="product-tags"><span>CAPTCHA</span></div>
+    </div>
+  </div>
+  <p class="the-model"><span class="only-en"><strong>The model:</strong> an annual plan sized to your peak hourly verification requests, sold per organization ID.</span><span class="only-zh"><strong>计费方式：</strong>按峰值每小时验证请求量确定的年度方案，以组织 ID 为单位购买。</span></p>
+  <p class="benefits-title"><span class="only-en">Why the model works in your favor</span><span class="only-zh">这种计费方式对您的好处</span></p>
+  <ul class="benefits">
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Sized to your real peak, not average traffic.</strong> The plan covers the worst hour you actually face, so launch days and traffic surges are covered without overpaying for day-to-day volume.</span><span class="only-zh"><strong>按真实峰值而非平均流量定档。</strong>方案覆盖实际面临的最高一小时，产品发布日与流量高峰均有保障，同时无需为日常流量过度付费。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Attack traffic inside your tier costs nothing extra.</strong> Request spikes from bots don't turn into per-request charges — capacity is pre-locked for the year.</span><span class="only-zh"><strong>档位内的攻击流量不额外收费。</strong>机器人带来的请求突增不会变成按次计费，容量在一年内预先锁定。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>Tiers make right-sizing mechanical.</strong> Pick the hourly tier above your peak; higher tiers add scenario IDs and throughput in step.</span><span class="only-zh"><strong>档位让选型变得简单。</strong>选择高于自身峰值的每小时档位即可；更高档位同步增加场景 ID 与吞吐能力。</span></span></li>
+    <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#2A1F5C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span><span class="only-en"><strong>One annual budget cycle.</strong> A single yearly commitment replaces ongoing usage tracking and variance.</span><span class="only-zh"><strong>一年一次预算周期。</strong>单笔年度承诺取代持续的用量跟踪与差异核对。</span></span></li>
+  </ul>
+  <p class="scale-note">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 9 9 0 0 1-4-.9L3 20l1.2-5.1a8 8 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span><span class="only-en"><strong>Peaks beyond standard tiers?</strong> Plans can be customized to your traffic profile.</span><span class="only-zh"><strong>峰值超出标准档位？</strong>可根据您的流量特征定制方案。</span></span>
+  </p>
+</article>
+
+</div>
+</div>
+
+<!-- Closing -->
+<section class="closing">
+  <div class="wrap">
+    <div class="closing-card reveal">
+      <h2><span class="only-en">Ready when you are.</span><span class="only-zh">随时可以完成开通</span></h2>
+      <p><span class="only-en">Log in to finish topping up in minutes — or reach out if you'd like help mapping your volumes and markets to the right billing models.</span><span class="only-zh">登录控制台，几分钟即可完成充值；如果希望我们结合您的发送量与目标市场匹配合适的计费模式，也欢迎随时联系。</span></p>
+      <div class="cta-row">
+        <a class="btn btn-primary only-en lang-cta" href="https://www.engagelab.com/accounts/signin?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+          Log in &amp; complete payment
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-primary only-zh lang-cta" href="https://www.engagelab.com/zh_CN/accounts/signin?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+          登录控制台，完成充值
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost only-en lang-cta" href="https://www.engagelab.com/pricing?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+          Estimate with the calculator
+        </a>
+        <a class="btn btn-ghost only-zh lang-cta" href="https://www.engagelab.com/zh_CN/pricing?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+          使用计算器估算费用
+        </a>
+        <a class="btn btn-ghost only-en lang-cta" href="https://www.engagelab.com/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+          Talk to our team
+        </a>
+        <a class="btn btn-ghost only-zh lang-cta" href="https://www.engagelab.com/zh_CN/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">
+          联系我们
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-fine"><span class="only-en">© 2026 EngageLab. Prices exclude VAT/GST.</span><span class="only-zh">© 2026 EngageLab。所有价格均不含增值税 / 商品及服务税。</span></p>
+    <div class="footer-links">
+      <a class="only-en lang-cta" href="https://www.engagelab.com/pricing?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">Pricing</a>
+      <a class="only-zh lang-cta" href="https://www.engagelab.com/zh_CN/pricing?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">价格页</a>
+      <a class="only-en lang-cta" href="https://www.engagelab.com/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">Contact Sales</a>
+      <a class="only-zh lang-cta" href="https://www.engagelab.com/zh_CN/contact?utm_source=outbound&amp;utm_campaign=pricing_guide" target="_blank" rel="noopener noreferrer">联系销售</a>
+      <span>sales@engagelab.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Language switching */
+  function applyLang(l){
+    document.documentElement.setAttribute("data-lang", l);
+    document.documentElement.setAttribute("lang", l==="zh" ? "zh-CN" : "en");
+    document.querySelectorAll("[data-en][data-zh]").forEach(function(el){
+      var v = el.getAttribute("data-"+l);
+      if(el.tagName==="META"){ el.setAttribute("content", v); }
+      else { el.textContent = v; }
+    });
+    document.querySelectorAll(".lang-switch button").forEach(function(b){
+      b.classList.toggle("is-active", b.getAttribute("data-set-lang")===l);
+    });
+    document.querySelectorAll("[data-href-en][data-href-zh]").forEach(function(a){
+      a.setAttribute("href", a.getAttribute("data-href-"+l));
+    });
+    try { localStorage.setItem("lang_pref", l); } catch(e){}
+  }
+  document.querySelectorAll(".lang-switch button").forEach(function(b){
+    b.addEventListener("click", function(){
+      applyLang(b.getAttribute("data-set-lang"));
+    });
+  });
+  applyLang(document.documentElement.getAttribute("data-lang") || "en");
+
+  /* Anchor links: stay in-document with a controlled smooth scroll */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
+  navLinks.forEach(function(a){
+    a.addEventListener("click", function(e){
+      var id = a.getAttribute("href").slice(1);
+      var target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "start"});
+    });
+  });
+
+  /* Reveal on scroll */
+  var revealEls = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add("in");
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:.12});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }else{
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* Scroll spy for hero quick-nav */
+  var chips = {};
+  document.querySelectorAll(".hero-nav a").forEach(function(a){
+    chips[a.getAttribute("href").slice(1)] = a;
+  });
+  var sections = Object.keys(chips).map(function(id){ return document.getElementById(id); });
+  if("IntersectionObserver" in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          document.querySelectorAll(".hero-nav a.is-active").forEach(function(a){a.classList.remove("is-active");});
+          var chip = chips[en.target.id];
+          if(chip) chip.classList.add("is-active");
+        }
+      });
+    }, {rootMargin:"-40% 0px -55% 0px"});
+    sections.forEach(function(s){ if(s) spy.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
